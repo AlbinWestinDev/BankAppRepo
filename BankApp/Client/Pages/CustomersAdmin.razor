@@ -14,6 +14,7 @@
                             <tr>
                                 <th scope="col">Förnamn</th>
                                 <th scope="col">Efternamn</th>
+                                
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
@@ -45,21 +46,23 @@
                             <tr>
                                 <th scope="col">Förnamn</th>
                                 <th scope="col">Efternamn</th>
+                                
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var customer in Customers)
                             {
-            <tr>
+                            <tr>
 
-                <td>@customer.Givenname</td>
-                <td>@customer.Surname</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="() => ShowAccountFormClicked(customer.CustomerId)">Skapa Konto</button>
-                </td>
+                                <td>@customer.Givenname</td>
+                                <td>@customer.Surname</td>
+                                
+                                <td>
+                                    <button class="btn btn-primary" @onclick="() => ShowAccountFormClicked(customer.CustomerId)">Skapa Konto</button>
+                                </td>
 
-            </tr>}
+                            </tr>}
 
                         </tbody>
                     </table>}
