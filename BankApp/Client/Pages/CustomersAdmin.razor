@@ -1,0 +1,39 @@
+﻿@page "/customersadmin"
+@inherits CustomerAdminBase
+
+
+<h3>Customers Admin</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Förnamn</th>
+            <th scope="col">Efternamn</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Customers)
+        {
+        <tr>
+
+            <td>@customer.Givenname</td>
+            <td>@customer.Surname</td>
+            <td>
+                <button class="btn btn-primary" @onclick="() => ApproveAsCustomer(customer)">Godkänd som Kund</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" @onclick="() => ApproveAsAdmin(customer)">Godkänd som Admin</button>
+            </td>
+        </tr>
+        }
+
+    </tbody>
+</table>
+
+
+
+
+
