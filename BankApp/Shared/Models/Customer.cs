@@ -9,7 +9,7 @@ namespace BankApp.Shared
     {
         public Customer()
         {
-            //Dispositions = new HashSet<Disposition>();
+            Accounts = new List<Account>();
         }
 
         public int CustomerId { get; set; }
@@ -26,11 +26,11 @@ namespace BankApp.Shared
         public string? Telephonenumber { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsCustomer { get; set; }
+        public virtual List<Account> Accounts { get; set; }
 
 
 
-
-        public Guid IdentityId { get; set; }
+    public Guid IdentityId { get; set; }
 
         public void UpdateNameOnSignUp(Customer customer)
         {
@@ -61,6 +61,6 @@ namespace BankApp.Shared
             IsAdmin = true;
         }
 
-        // public virtual ICollection<Disposition> Dispositions { get; set; }
+        
     }
 }

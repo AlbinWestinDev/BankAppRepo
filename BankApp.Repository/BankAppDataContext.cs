@@ -22,7 +22,7 @@ namespace AspBankApp.Repository
         public virtual DbSet<AccountType> AccountTypes { get; set; }
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Disposition> Dispositions { get; set; }
+       // public virtual DbSet<Disposition> Dispositions { get; set; }
         public virtual DbSet<Loan> Loans { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
 
@@ -86,11 +86,11 @@ namespace AspBankApp.Repository
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.HasOne(d => d.Disposition)
-                    .WithMany(p => p.Cards)
-                    .HasForeignKey(d => d.DispositionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Cards_Dispositions");
+                //entity.HasOne(d => d.Disposition)
+                //    .WithMany(p => p.Cards)
+                //    .HasForeignKey(d => d.DispositionId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_Cards_Dispositions");
             });
 
             modelBuilder.Entity<Customer>(entity =>
@@ -138,24 +138,24 @@ namespace AspBankApp.Repository
                     .HasMaxLength(15);
             });
 
-            modelBuilder.Entity<Disposition>(entity =>
-            {
-                entity.Property(e => e.Type)
-                    .IsRequired()
-                    .HasMaxLength(50);
+            //modelBuilder.Entity<Disposition>(entity =>
+            //{
+            //    //entity.Property(e => e.Type)
+            //    //    .IsRequired()
+            //    //    .HasMaxLength(50);
 
-                entity.HasOne(d => d.Account)
-                    .WithMany(p => p.Dispositions)
-                    .HasForeignKey(d => d.AccountId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_Dispositions_Accounts");
+            //    //entity.HasOne(d => d.Account)
+            //    //    .WithMany(p => p.Dispositions)
+            //    //    .HasForeignKey(d => d.AccountId)
+            //    //    .OnDelete(DeleteBehavior.Cascade)
+            //    //    .HasConstraintName("FK_Dispositions_Accounts");
 
-                //entity.HasOne(d => d.Customer)
-                //    .WithMany(p => p.Dispositions)
-                //    .HasForeignKey(d => d.CustomerId)
-                //    .OnDelete(DeleteBehavior.Cascade)
-                //    .HasConstraintName("FK_Dispositions_Customers");
-            });
+            //    //entity.HasOne(d => d.Customer)
+            //    //    .WithMany(p => p.Dispositions)
+            //    //    .HasForeignKey(d => d.CustomerId)
+            //    //    .OnDelete(DeleteBehavior.Cascade)
+            //    //    .HasConstraintName("FK_Dispositions_Customers");
+            //});
 
             modelBuilder.Entity<Loan>(entity =>
             {

@@ -17,6 +17,6 @@ namespace BankApp.Shared
         public int ExpM { get; set; }
         public int ExpY { get; set; }
 
-        public virtual Disposition Disposition { get; set; }
+       // public virtual Disposition Disposition { get; set; }
     }
 }
