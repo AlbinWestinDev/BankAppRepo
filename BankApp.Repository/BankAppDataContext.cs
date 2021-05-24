@@ -41,9 +41,9 @@ namespace AspBankApp.Repository
 
                 entity.Property(e => e.Created).HasColumnType("date");
 
-                entity.Property(e => e.Frequency)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                //entity.Property(e => e.Frequency)
+                //    .IsRequired()
+                //    .HasMaxLength(50);
 
                 entity.HasOne(d => d.AccountTypes)
                     .WithMany(p => p.Accounts)

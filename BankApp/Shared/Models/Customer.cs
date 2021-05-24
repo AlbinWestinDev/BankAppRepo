@@ -50,9 +50,19 @@ namespace BankApp.Shared
             customer.IdentityId = Guid.Parse(iDIdentifier);
             return customer;
         }
+        public void CreateNewAccount(int accountType)
+        {
+            Account salaryAccount = new Account();
+            salaryAccount.AccountTypesId = accountType;
+            salaryAccount.Balance = 0;
+
+            Accounts.Add(salaryAccount);
+        }
 
         public void ApproveAsCustomer()
         {
+            CreateNewAccount(Constants.AccountTypeSalaryAccount);
+
             IsCustomer = true;
         }
 

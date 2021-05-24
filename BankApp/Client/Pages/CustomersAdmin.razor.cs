@@ -14,19 +14,23 @@ namespace BankApp.Client.Pages
 
         [Inject]
         public HttpClient _httpClient { get; set; }
-
+        [Inject]
+        public NavigationManager Navigation { get; set; }
+        public List<Customer> PendingCustomer { get; set; } = new List<Customer>();
         public List<Customer> Customers { get; set; } = new List<Customer>();
+       
 
         protected override async Task<Task> OnInitializedAsync()
         {
-            await GetCustomerList();
+            await GetPendingCustomers();
+            await GetCustomers();
             return base.OnInitializedAsync();
         }
-        public async Task GetCustomerList()
+        public async Task GetPendingCustomers()
         {
             var customers = await _httpClient.GetFromJsonAsync<List<Customer>>($"customer/getunregistered");
 
-            Customers = customers;
+            PendingCustomer = customers;
         }
         public async Task ApproveAsAdmin(Customer customer)
         {
@@ -36,6 +40,15 @@ namespace BankApp.Client.Pages
         {
             await _httpClient.PutAsJsonAsync($"customer/approveascustomer/", customer);
         }
+        public async Task GetCustomers()
+        {
+            var customers = await _httpClient.GetFromJsonAsync<List<Customer>>($"customer/getcustomers");
 
+            Customers = customers;
+        }
+        public async Task ShowAccountFormClicked(int customerId)
+        {
+            Navigation.NavigateTo($"/createaccount/{customerId}");
+        }
     }
 }

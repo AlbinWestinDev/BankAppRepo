@@ -9,14 +9,15 @@ namespace BankApp.Shared
     {
         public Account()
         {
-           
+
+            Created = DateTime.Now;
 
             Loans = new HashSet<Loan>();
             Transactions = new HashSet<Transaction>();
         }
 
         public int AccountId { get; set; }
-        public string Frequency { get; set; }
+        
         public DateTime Created { get; set; }
         public decimal Balance { get; set; }
         public int? AccountTypesId { get; set; }

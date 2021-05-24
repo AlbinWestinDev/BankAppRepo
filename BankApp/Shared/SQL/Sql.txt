@@ -1,0 +1,18 @@
+﻿USE [BankApp]
+GO
+
+INSERT INTO [dbo].[AccountTypes]
+           ([TypeName]
+           ,[Description])
+     VALUES
+           ('Sparkonto','Konto för besparningar')
+GO
+
+INSERT INTO [dbo].[AccountTypes]
+           ([TypeName]
+           ,[Description])
+     VALUES
+           ('Lönekonto','Konto för lön')
+GO
+
+

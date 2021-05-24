@@ -21,6 +21,7 @@ namespace BankApp.Repository
         Customer GetByEmailIdentifier(string emailIdentifier);
 
         List<Customer> GetUnregistered();
+        List<Customer> GetCustomers();
     }
 
     public class CustomerRepository : ICustomerRepository
@@ -109,6 +110,12 @@ namespace BankApp.Repository
                 throw ex;
             }
             return customer;
+        }
+
+        public List<Customer> GetCustomers()
+        {
+            var customers = _context.Customers.Where(x => x.IsCustomer).ToList();
+            return customers;
         }
     }
 }

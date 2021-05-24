@@ -4,34 +4,70 @@
 
 <h3>Customers Admin</h3>
 
+    @if (PendingCustomer.Count > 0)
+    {
+    <label>
+        Skapa kunder
+    </label>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Förnamn</th>
+                                <th scope="col">Efternamn</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var customer in PendingCustomer)
+                            {
+            <tr>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Förnamn</th>
-            <th scope="col">Efternamn</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var customer in Customers)
-        {
-        <tr>
+                <td>@customer.Givenname</td>
+                <td>@customer.Surname</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => ApproveAsCustomer(customer)">Godkänd som Kund</button>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => ApproveAsAdmin(customer)">Godkänd som Admin</button>
+                </td>
+            </tr>}
 
-            <td>@customer.Givenname</td>
-            <td>@customer.Surname</td>
-            <td>
-                <button class="btn btn-primary" @onclick="() => ApproveAsCustomer(customer)">Godkänd som Kund</button>
-            </td>
-            <td>
-                <button class="btn btn-primary" @onclick="() => ApproveAsAdmin(customer)">Godkänd som Admin</button>
-            </td>
-        </tr>
-        }
+                        </tbody>
+                    </table>}
+    @if (Customers.Count > 0)
+    {
+    <label>
+        Hantera befintliga kunder
+    </label>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Förnamn</th>
+                                <th scope="col">Efternamn</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var customer in Customers)
+                            {
+            <tr>
 
-    </tbody>
-</table>
+                <td>@customer.Givenname</td>
+                <td>@customer.Surname</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => ShowAccountFormClicked(customer.CustomerId)">Skapa Konto</button>
+                </td>
+
+            </tr>}
+
+                        </tbody>
+                    </table>}
+
+
+
+
+
 
 
 

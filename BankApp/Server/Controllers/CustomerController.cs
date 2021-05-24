@@ -65,6 +65,14 @@ namespace BankApp.Server.Controllers
             _customerRepository.Save(customer);
             return Ok();
         }
+
+        
+        [HttpGet("getcustomers")]
+        public IActionResult GetCustomers()
+        {
+            var customers = _customerRepository.GetCustomers();
+            return Ok(customers);
+        }
     }
     
 }
