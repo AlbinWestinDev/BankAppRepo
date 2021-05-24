@@ -1,6 +1,38 @@
-﻿@page "/createaccount/{CustomerId:int}" 
+﻿@page "/createaccount/{CustomerId:int}"
 @inherits CreateAccountBase
 
-<h3>CreateAccount</h3>
+<h3>Lägg till bankkonto till kund</h3>
 
 
+<AuthorizeView Roles="admin" Context="authContext">
+    <Authorized>
+        <EditForm Model="@Customer" OnValidSubmit="HandleValidSubmit">
+
+           
+            <hr />
+            @Customer.Givenname @Customer.Surname
+
+
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">
+                    Välj kontotyp
+                </label>
+                <div class="col-sm-10">
+                    
+                    <InputSelect id="accounttype" @bind-Value="SelectedAccountType">
+                        @foreach (var account in AccountTypes)
+                        {
+                            <option value="@account.AccountTypeId"> @account.TypeName</option>
+                        }
+                    </InputSelect>
+
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Spara</button>
+
+
+        </EditForm>
+    </Authorized>
+
+</AuthorizeView>

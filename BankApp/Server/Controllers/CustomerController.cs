@@ -23,7 +23,7 @@ namespace BankApp.Server.Controllers
         [HttpPut("editcustomeronsignup")]
         public IActionResult EditCustomerOnSignup([FromBody] Customer customer)
         {
-            
+
             var sparadCustomer = _customerRepository.UpdateNameOnSignUp(customer, User.GetIdentityId());
 
             return Ok(sparadCustomer);
@@ -46,12 +46,17 @@ namespace BankApp.Server.Controllers
 
             return Ok(dbCustomer);
         }
-
+        [HttpGet("getcustomer/{CustomerId:int}")]
+        public IActionResult GetCustomer(int CustomerId)
+        {
+            var customer = _customerRepository.GetById(CustomerId);
+            return Ok(customer);
+        }
 
         [HttpPut("approveascustomer")]
         public IActionResult ApproveCustomer([FromBody] Customer customer)
         {
-           var dbCustomer =  _customerRepository.GetById(customer.CustomerId);
+            var dbCustomer = _customerRepository.GetById(customer.CustomerId);
             dbCustomer.ApproveAsCustomer();
             _customerRepository.Save(customer);
             return Ok();
@@ -66,13 +71,24 @@ namespace BankApp.Server.Controllers
             return Ok();
         }
 
-        
+
         [HttpGet("getcustomers")]
         public IActionResult GetCustomers()
         {
             var customers = _customerRepository.GetCustomers();
             return Ok(customers);
         }
+
+        [HttpPut("addaccount/{CustomerId:int}/{AccountTypeId:int}")]
+        public IActionResult AddAccount(int CustomerId, int AccountTypeId)
+        {
+            var customer = _customerRepository.GetById(CustomerId);
+            customer.CreateNewAccount(AccountTypeId);
+            _customerRepository.Save(customer);
+
+            return Ok();
+        }
+       
     }
     
 }

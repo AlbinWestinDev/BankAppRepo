@@ -22,6 +22,7 @@ namespace BankApp.Repository
 
         List<Customer> GetUnregistered();
         List<Customer> GetCustomers();
+        
     }
 
     public class CustomerRepository : ICustomerRepository
