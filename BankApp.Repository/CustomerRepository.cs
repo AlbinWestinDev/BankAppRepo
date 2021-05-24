@@ -12,7 +12,7 @@ namespace BankApp.Repository
     public interface ICustomerRepository
     {
         Customer UpdateNameOnSignUp(Customer customer, Guid IdentityId);
-
+        Customer Save(Customer customer);
         void CreatCustomer(string emailIdentifier, string iDIdentifier);
         Customer GetById(int id);
 
@@ -96,6 +96,19 @@ namespace BankApp.Repository
             x.Surname !=null).ToList();
 
             return customers;
+        }
+        public Customer Save(Customer customer)
+        {
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return customer;
         }
     }
 }

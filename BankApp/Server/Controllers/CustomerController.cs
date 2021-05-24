@@ -48,16 +48,23 @@ namespace BankApp.Server.Controllers
         }
 
 
-        //[HttpPut("approveascustomer")]
-        //public IActionResult ApproveCustomer([FromBody] Customer customer)
-        //{
-            
-        //}
-        //[HttpPut("approveasadmin")]
-        //public IActionResult ApproveAdmin([FromBody] Customer customer)
-        //{
-           
-        //}
+        [HttpPut("approveascustomer")]
+        public IActionResult ApproveCustomer([FromBody] Customer customer)
+        {
+           var dbCustomer =  _customerRepository.GetById(customer.CustomerId);
+            dbCustomer.ApproveAsCustomer();
+            _customerRepository.Save(customer);
+            return Ok();
+        }
+        [HttpPut("approveasadmin")]
+        public IActionResult ApproveAdmin([FromBody] Customer customer)
+        {
+
+            var dbCustomer = _customerRepository.GetById(customer.CustomerId);
+            dbCustomer.ApproveAsAdmin();
+            _customerRepository.Save(customer);
+            return Ok();
+        }
     }
     
 }

@@ -43,6 +43,14 @@ public class CustomUserFactory
                 Console.WriteLine("Användaren" + user.Identity.Name + " är customer ");
             }
 
+            if (identity.Claims.Where(x => x.Type == ClaimTypes.Role && x.Value == "pending").Any())
+            {
+                var adminClaim = new Claim(ClaimTypes.Role, "pending");
+                var claimsIdentity = new ClaimsIdentity();
+                claimsIdentity.AddClaim(adminClaim);
+                user.AddIdentity(claimsIdentity);
+                Console.WriteLine("Användaren" + user.Identity.Name + " pending ");
+            }
         }
 
         return user;

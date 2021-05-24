@@ -51,6 +51,16 @@ namespace BankApp.Shared
             return customer;
         }
 
+        public void ApproveAsCustomer()
+        {
+            IsCustomer = true;
+        }
+
+        public void ApproveAsAdmin()
+        {
+            IsAdmin = true;
+        }
+
         // public virtual ICollection<Disposition> Dispositions { get; set; }
     }
 }

@@ -25,12 +25,17 @@ namespace BankApp.Client.Pages
         [Inject]
          AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
+        public bool IsAuthenticated { get; set; }
+
         public bool VisaInteEditForm; 
     
         protected override async Task OnInitializedAsync()
         {
             var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            
+
+
+            IsAuthenticated = authenticationState.User.Identity.IsAuthenticated;
+
             if (authenticationState.User.Identity.IsAuthenticated)
             {
                 Console.WriteLine(authenticationState.User.Identity.Name);
