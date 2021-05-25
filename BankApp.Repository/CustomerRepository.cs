@@ -81,6 +81,23 @@ namespace BankApp.Repository
         public Customer GetById(int id)
         {
             var customer = _context.Customers.SingleOrDefault(x => x.CustomerId == id);
+
+
+            var accounts = _context.Accounts.Where(x => x.CustomerId == customer.CustomerId).ToList().DeepClone();
+            var accountTypes = _context.AccountTypes.ToList();
+            var accountsDto = new List<AccountDto>();
+
+            foreach (var item in accounts)
+            {
+                var a = new AccountDto();
+                a.AccountId = item.AccountId;
+                a.AccountTypeName = accountTypes.Where(x => x.AccountTypeId == item.AccountTypesId).FirstOrDefault().TypeName;
+                accountsDto.Add(a);
+            }
+
+            customer.AccountsList = accountsDto.DeepClone();
+
+
             return customer;
         }
 

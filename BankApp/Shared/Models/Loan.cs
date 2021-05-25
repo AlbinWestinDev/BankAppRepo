@@ -16,5 +16,20 @@ namespace BankApp.Shared
         public string Status { get; set; }
 
         public virtual Account Account { get; set; }
+
+
+
+        public static Loan CreateNewLoan(Loan loan)
+        {
+            var newLoan = new Loan();
+            newLoan.AccountId = loan.AccountId;
+            newLoan.Amount = loan.Amount;
+            newLoan.Date = DateTime.Now;
+            newLoan.Duration = loan.Duration;
+            newLoan.Payments = 12;
+            newLoan.Status = "Huslån";
+
+            return newLoan;
+        }
     }
 }

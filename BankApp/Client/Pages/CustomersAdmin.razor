@@ -2,7 +2,7 @@
 @inherits CustomerAdminBase
 
 
-<h3>Customers Admin</h3>
+<h3>Admin </h3>
 
     @if (PendingCustomer.Count > 0)
     {
@@ -46,7 +46,10 @@
                             <tr>
                                 <th scope="col">Förnamn</th>
                                 <th scope="col">Efternamn</th>
-                                
+                                <th scope="col">Email</th>
+                                <th scope="col">Land</th>
+                                <th scope="col">Stad</th>
+
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -57,15 +60,22 @@
 
                                 <td>@customer.Givenname</td>
                                 <td>@customer.Surname</td>
-                                
+                                <td>@customer.Emailaddress</td>
+                                <td>@customer.Country</td>
+                                <td>@customer.City</td> 
+
                                 <td>
                                     <button class="btn btn-primary" @onclick="() => ShowAccountFormClicked(customer.CustomerId)">Skapa Konto</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" @onclick="() => ApplyLoanOnClick(customer.CustomerId)"> Skapa Lån  </button>
                                 </td>
 
                             </tr>}
 
                         </tbody>
-                    </table>}
+                    </table>
+                    }
 
 
 

@@ -50,5 +50,10 @@ namespace BankApp.Client.Pages
         {
             Navigation.NavigateTo($"/createaccount/{customerId}");
         }
+        public async Task ApplyLoanOnClick(int CustomerId)
+        {
+            Navigation.NavigateTo($"/loanpage/{CustomerId}");
+        }
+        
     }
 }

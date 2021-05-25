@@ -1,10 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
 namespace BankApp.Shared
 {
+
+    public class AccountDto
+    {
+        public string AccountTypeName { get; set; }
+        public int AccountId { get; set; }
+
+    }
     public partial class Customer
     {
         public Customer()
@@ -26,11 +36,17 @@ namespace BankApp.Shared
         public string? Telephonenumber { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsCustomer { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual List<Account> Accounts { get; set; }
 
+        [NotMapped]
+        public virtual List<AccountDto> AccountsList { get; set; }
 
 
-    public Guid IdentityId { get; set; }
+
+        public Guid IdentityId { get; set; }
 
         public void UpdateNameOnSignUp(Customer customer)
         {
@@ -52,11 +68,13 @@ namespace BankApp.Shared
         }
         public void CreateNewAccount(int accountType)
         {
-            Account salaryAccount = new Account();
-            salaryAccount.AccountTypesId = accountType;
-            salaryAccount.Balance = 0;
+            Account account = new Account();
+            account.AccountTypesId = accountType;
+            account.Balance = 0;
+           
 
-            Accounts.Add(salaryAccount);
+
+            Accounts.Add(account);
         }
 
         public void ApproveAsCustomer()

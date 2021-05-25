@@ -22,7 +22,7 @@ namespace BankApp.Client.Pages
         public List<AccountType> AccountTypes { get; set; } = new List<AccountType>();
         public int SelectedAccountType { get; set; }
 
-
+   
         protected override async Task<Task> OnInitializedAsync()
         {
            await GetCustomer();

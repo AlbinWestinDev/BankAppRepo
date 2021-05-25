@@ -4,7 +4,19 @@
 
 <AuthorizeView Roles="admin" Context="authContext">
     <Authorized>
-        <pre>innlogad som admin</pre>
+        @if (NyCustomer != null)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h3>Admin: @NyCustomer.Givenname</h3>
+                    <p>Du som administrator kan se till att kunder kan skapa nya bank konton
+                     Hantera lån & godkänna transaktioner mellan kunder
+                    Navigera till Kundadministrering för att hantera kunder</p>
+                </div>
+            </div>
+           
+        }
+
     </Authorized>
 
 </AuthorizeView>
@@ -12,7 +24,26 @@
 
 <AuthorizeView Roles="customer" Context="authContext">
     <Authorized>
-        <pre>Inloggad som kund</pre>
+        @if (NyCustomer != null) 
+        {
+     
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Kund @NyCustomer.Givenname @NyCustomer.Surname</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Personlig Information</h6>
+                <a>@NyCustomer.Emailaddress</a>
+                <br />
+                <a>@NyCustomer.Streetaddress</a>
+                <div>
+                    <a href="#" class="card-link">Bank Konto</a>
+
+                </div>
+                
+            </div>
+        </div>
+    
+        
+        }
     </Authorized>
 
 </AuthorizeView>
