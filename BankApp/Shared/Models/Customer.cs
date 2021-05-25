@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
@@ -43,8 +44,12 @@ namespace BankApp.Shared
 
         [NotMapped]
         public virtual List<AccountDto> AccountsList { get; set; }
-
-
+        
+        public void SetBalance(decimal amount, int accountId)
+        {
+            var account = Accounts.Where(x => x.AccountId == accountId).FirstOrDefault();
+            account.Balance = account.Balance + amount;
+        }
 
         public Guid IdentityId { get; set; }
 

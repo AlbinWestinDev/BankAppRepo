@@ -19,5 +19,20 @@ namespace BankApp.Shared
         public string Account { get; set; }
 
         public virtual Account AccountNavigation { get; set; }
+
+        public static Transaction CreateTransaction(int accountId, decimal amount, string type, string operation)
+        {
+            var newtransaction = new Transaction();
+
+            newtransaction.AccountId = accountId;
+            newtransaction.Amount = amount;
+            newtransaction.Bank = "Banken";
+            newtransaction.Balance = 0;
+            newtransaction.Date = DateTime.Now;
+            newtransaction.Type = type;
+            newtransaction.Operation = operation;
+
+            return newtransaction;
+        }
     }
 }

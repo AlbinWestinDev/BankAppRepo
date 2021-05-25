@@ -49,7 +49,7 @@ namespace BankApp.Server.Controllers
         [HttpGet("getcustomer/{CustomerId:int}")]
         public IActionResult GetCustomer(int CustomerId)
         {
-            var customer = _customerRepository.GetById(CustomerId);
+            var customer = _customerRepository.GetById(CustomerId, false);
             return Ok(customer);
         }
 

@@ -49,6 +49,7 @@ namespace BankApp.Server
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IAccountTypeRepository, AccountRepository>();
             services.AddScoped<ILoanRepository, LoanRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
 
             services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>

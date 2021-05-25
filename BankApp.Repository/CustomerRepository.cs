@@ -14,8 +14,10 @@ namespace BankApp.Repository
     {
         Customer UpdateNameOnSignUp(Customer customer, Guid IdentityId);
         Customer Save(Customer customer);
+
+        Account SaveAccount(Account account);
         void CreatCustomer(string emailIdentifier, string iDIdentifier);
-        Customer GetById(int id);
+        Customer GetById(int id, bool ignore = true);
 
         Customer GetById(Guid id);
 
@@ -23,7 +25,10 @@ namespace BankApp.Repository
 
         List<Customer> GetUnregistered();
         List<Customer> GetCustomers();
-        
+
+        Account GetAccountById(int accountId);
+
+
     }
 
     public class CustomerRepository : ICustomerRepository
@@ -78,27 +83,35 @@ namespace BankApp.Repository
 
         }
 
-        public Customer GetById(int id)
+        public Customer GetById(int id, bool ignore)
         {
             var customer = _context.Customers.SingleOrDefault(x => x.CustomerId == id);
 
-
-            var accounts = _context.Accounts.Where(x => x.CustomerId == customer.CustomerId).ToList().DeepClone();
-            var accountTypes = _context.AccountTypes.ToList();
-            var accountsDto = new List<AccountDto>();
-
-            foreach (var item in accounts)
+            if (!ignore)
             {
-                var a = new AccountDto();
-                a.AccountId = item.AccountId;
-                a.AccountTypeName = accountTypes.Where(x => x.AccountTypeId == item.AccountTypesId).FirstOrDefault().TypeName;
-                accountsDto.Add(a);
+                var accounts = _context.Accounts.Where(x => x.CustomerId == customer.CustomerId).ToList().DeepClone();
+                var accountTypes = _context.AccountTypes.ToList();
+                var accountsDto = new List<AccountDto>();
+
+                foreach (var item in accounts)
+                {
+                    var a = new AccountDto();
+                    a.AccountId = item.AccountId;
+                    a.AccountTypeName = accountTypes.Where(x => x.AccountTypeId == item.AccountTypesId).FirstOrDefault().TypeName;
+                    accountsDto.Add(a);
+                }
+
+                customer.AccountsList = accountsDto.DeepClone();
             }
 
-            customer.AccountsList = accountsDto.DeepClone();
-
-
             return customer;
+        }
+        
+
+        public Account GetAccountById(int accountId)
+        {
+            var dbAccount = _context.Accounts.Where(x => x.AccountId == accountId).FirstOrDefault();
+                return dbAccount;
         }
 
         public Customer GetById(Guid id)
@@ -117,6 +130,22 @@ namespace BankApp.Repository
 
             return customers;
         }
+
+
+
+       public  Account SaveAccount(Account account)
+        {
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return account;
+        }
+
         public Customer Save(Customer customer)
         {
 

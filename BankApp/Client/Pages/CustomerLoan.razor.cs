@@ -43,7 +43,7 @@ namespace BankApp.Client.Pages
 
             Console.WriteLine(SelectedAccountId);
 
-            await _httpClient.PostAsJsonAsync($"loan/addloan", Loan);
+            await _httpClient.PostAsJsonAsync($"loan/addloan/{CustomerId}", Loan);
             Navigation.NavigateTo("/customersadmin");
         }
 

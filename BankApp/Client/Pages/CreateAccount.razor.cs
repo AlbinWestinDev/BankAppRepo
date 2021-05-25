@@ -49,23 +49,7 @@ namespace BankApp.Client.Pages
         
         }
 
-        /*
-         Hämta 1 kund
-         
-        Skriv ut namnet på kunden 
-
-        Ange en konto typ (bara ett sparkonto)
-
-        Combolista som visar kontotyper
-
-        Skap inte gå att skapa ett lönekoto för det finns redan.
-
-        Spara knapp 
-
-        Anropp ny mvc enpoint som skapar kontotr
-
-
-         */
+   
 
     }
 }

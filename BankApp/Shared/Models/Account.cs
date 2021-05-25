@@ -41,5 +41,12 @@ namespace BankApp.Shared
 
         [JsonIgnore]
         public virtual ICollection<Transaction> Transactions { get; set; }
+
+
+        public void SetBalance(decimal amount)
+        {
+          Balance = Balance + amount;
+        }
+
     }
 }

@@ -35,8 +35,8 @@
                 <br />
                 <a>@NyCustomer.Streetaddress</a>
                 <div>
-                    <a href="#" class="card-link">Bank Konto</a>
-
+                    <a href="" class="card-link">Konto Översikt</a>
+                    <btn></btn>
                 </div>
                 
             </div>
@@ -52,46 +52,69 @@
 
 <AuthorizeView Roles="pending" Context="authContext">
     <Authorized>
-        <pre>Inloggad men inte som kund eller admin</pre>
+        
 
 
         @if (!VisaInteEditForm)
         {
-<p class="text-left">Du har registrerat dig för att bli kund i banken</p>
+<h1 class="text-left">Du har registrerat dig för att bli kund i banken.
+        
+        </h1>
                     <br />
                                         <p class="text-left">För att en administratör ska kunna godkänna din förfrågan var god fyll i dina uppgifter!</p>
 
 
-                                                            <EditForm Model="@NyCustomer" OnValidSubmit="HandleValidSubmit">
+                                        <EditForm Model="@NyCustomer" OnValidSubmit="HandleValidSubmit">
 
-                                                                <h3>Din uppgifter</h3>
-                                                                <hr />
-                                                                <div class="form-group row">
-                                                                    <label for="firstName" class="col-sm-2 col-form-label">
-                                                                        Förnamn
-                                                                    </label>
-                                                                    <div class="col-sm-10">
-                                                                        <InputText id="firstName" class="form-control" placeholder="fyll i förnamn"
-                                                                                   @bind-Value="@NyCustomer.Givenname" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <label for="lastName" class="col-sm-2 col-form-label">
-                                                                        Efternamn
-                                                                    </label>
-                                                                    <div class="col-sm-10">
-                                                                        <InputText id="lastName" class="form-control" placeholder="fyll i efternamn"
-                                                                                   @bind-Value="NyCustomer.Surname" />
-                                                                    </div>
-                                                                </div>
-                                                                <button type="submit" class="btn btn-primary">Spara</button>
+                                            <h3>Dina uppgifter</h3>
+                                            <hr />
+                                            <div class="form-group row">
+                                                <label for="firstName" class="col-sm-2 col-form-label">
+                                                    Förnamn
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <InputText id="firstName" class="form-control" placeholder="fyll i förnamn"
+                                                               @bind-Value="@NyCustomer.Givenname" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="lastName" class="col-sm-2 col-form-label">
+                                                    Efternamn
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <InputText id="lastName" class="form-control" placeholder="fyll i efternamn"
+                                                               @bind-Value="NyCustomer.Surname" />
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="lastName" class="col-sm-2 col-form-label">
+                                                    Land
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <InputText id="lastName" class="form-control" placeholder="fyll i efternamn"
+                                                               @bind-Value="NyCustomer.Country" />
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="lastName" class="col-sm-2 col-form-label">
+                                                    Efternamn
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <InputText id="lastName" class="form-control" placeholder="fyll i efternamn"
+                                                               @bind-Value="NyCustomer.Surname" />
+                                                </div>
+
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Spara</button>
 
 
-                                                            </EditForm>}
+                                        </EditForm>}
 
         @if (VisaInteEditForm)
         {
-<p class="text-left">Tack :-)  @NyCustomer.Givenname @NyCustomer.Surname. Ny ska bara administratören godkänna dig!</p>}
+<h2 class="text-left">Tack så mycket  @NyCustomer.Givenname @NyCustomer.Surname. Ny ska bara administratören godkänna dig!</h2>}
 
 
     </Authorized>
@@ -101,18 +124,18 @@
 
         @if (!IsAuthenticated)
         {
-        <pre>Inte inloggad</pre>
-        <div class="row">
-            <div class="text-nowrap" style="width: 8rem;">
-                För att bli kund i banken registrera dig...
-            </div>
+        <div class="jumbotron">
+            <h1 class="display-4">Atlas Bank</h1>
+            <p class="lead">
+                För att bli kund i banken registrera dig, navigera till register
+                sen kommer du bli ombedd att fylla i lite uppgifter innan en Admin kan
+                Godkänna dig.
+            </p>
+            <hr class="my-4">
+            <p>Är du redan kund hos oss är det bara att logga in</p>
+            
         </div>
-        <br />
-        <div class="row">
-            <div class="text-nowrap" style="width: 8rem;">
-                Är du redan kund så är det bara att logga in.
-            </div>
-        </div>
+       
         }
     </NotAuthorized>
 </AuthorizeView>
