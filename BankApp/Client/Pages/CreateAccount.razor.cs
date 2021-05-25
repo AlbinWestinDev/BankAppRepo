@@ -15,6 +15,7 @@ namespace BankApp.Client.Pages
         public HttpClient _httpClient { get; set; }
         [Inject]
         public NavigationManager Navigation { get; set; }
+
         [Parameter]
         public int CustomerId { get; set; }
 
@@ -44,7 +45,7 @@ namespace BankApp.Client.Pages
         public async Task HandleValidSubmit()
         {
             await _httpClient.PutAsJsonAsync($"customer/addaccount/{Customer.CustomerId}/{SelectedAccountType}","");
-
+            
             Navigation.NavigateTo("/customersadmin");
         
         }
