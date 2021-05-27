@@ -9,11 +9,31 @@ using System.Text.Json.Serialization;
 
 namespace BankApp.Shared
 {
+    public class TransactionDto
+    {
+        public DateTime Date { get; set; } 
+        public string Type { get; set; }
+        public string Operation { get; set; }
+        public decimal Amount { get; set; }
+
+        public int AccountId { get; set; }
+
+        public int? CustomerAccountId { get; set; }
+
+        public string Error { get; set; }
+
+        public bool Succeed { get; set; }
+
+    }
 
     public class AccountDto
     {
         public string AccountTypeName { get; set; }
         public int AccountId { get; set; }
+        public decimal Balance { get; set; }
+        public bool ShowTransaction { get; set; }
+
+        public List<TransactionDto> Transactions { get; set; }
 
     }
     public partial class Customer
@@ -84,8 +104,7 @@ namespace BankApp.Shared
 
         public void ApproveAsCustomer()
         {
-            CreateNewAccount(Constants.AccountTypeSalaryAccount);
-
+           
             IsCustomer = true;
         }
 

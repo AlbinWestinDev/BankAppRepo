@@ -1,0 +1,114 @@
+﻿@page "/customeraccountdetails/{CustomerId:int}"
+@inherits CustomerAccountDetailsBase
+
+<h3>Konto @Customer.Givenname @Customer.Surname</h3>
+@if (Customer.AccountsList != null)
+{
+    @foreach (var item in Customer.AccountsList)
+    {
+        <div class="card" style="width: 38rem;">
+            <div class="card-body">
+                <h5 class="card-title">@item.AccountId @item.AccountTypeName</h5>
+                <p class="card-text">Saldo: @item.Balance Kr</p>
+                <a @onclick="() => ShowTransactions(item)" class="btn btn-primary" style="margin-bottom:10px">Visa Transaktioner</a>
+                <br />
+                @if (item.ShowTransaction)
+                {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Datum</th>
+                            <th scope="col">Operation</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Typ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var transaction in item.Transactions)
+                            {
+                        <tr>
+                            <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
+                            <td>@transaction.Operation</td>
+                            <td>@transaction.Amount</td>
+                            <td>@transaction.Type</td>
+                        </tr>
+                            }
+
+                    </tbody>
+                </table>
+                }
+
+                <EditForm Model="@Deposit" OnValidSubmit="() => HandleValidSubmitDeposit(item.AccountId)">
+                    <div class="form-group row" style="margin-bottom:10px">
+                        <div class="form-text">
+                            Gör en insättning
+
+                            <div class="col-sm-10">
+                                <InputNumber id="accounttype" class="form-control" placeholder="Summa"
+                                             @bind-Value="@Deposit.Amount" />
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Spara insättning</button>
+                </EditForm>
+
+
+                <EditForm Model="@Deposit" OnValidSubmit="() => HandleValidSubmitWithdraw(item.AccountId)">
+                    <div class="form-group row" style="margin-bottom:10px">
+                        <div class="form-text">
+                            Gör ett uttag
+
+                            <div class="col-sm-10">
+                                <InputNumber id="accounttype" class="form-control" placeholder="Summa"
+                                             @bind-Value="@Deposit.Amount" />
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Spara uttag</button>
+                </EditForm>
+
+
+
+                <EditForm Model="@Deposit" OnValidSubmit="() => HandleValidSubmitCustomerTransfer(item.AccountId)">
+                    <div class="form-group row" style="margin-bottom:10px">
+                        <div class="col-sm-10">
+                            Skriv in kontonr för Överföring till eget konto. Eller till annan kunds konto
+                            <InputNumber id="accounttype" class="form-control" placeholder="kontonr"
+                                         @bind-Value="@Deposit.CustomerAccountId" />
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-bottom:10px">
+                        <div class="col-sm-10">
+                            Ange summa som ska överföras
+                            <InputNumber id="accounttype" class="form-control" placeholder="Summa"
+                                         @bind-Value="@Deposit.Amount" />
+                        </div>
+                    </div>
+                    <label style="color:red">@Deposit.Error</label>
+                    <button type="submit" class="btn btn-primary">Överför</button>
+                </EditForm>
+
+
+
+            </div>
+        </div>
+    }
+
+
+
+
+
+}
+
+
+

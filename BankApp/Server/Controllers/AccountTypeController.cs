@@ -1,4 +1,5 @@
 ﻿using BankApp.Repository;
+using BankApp.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,17 @@ namespace BankApp.Server.Controllers
         {
             var accountypes = _accountTypeRepository.GetAccountTypes();
             return Ok(accountypes);
+        }
+
+
+        [HttpPost("addaccounttype")]
+        public IActionResult AddAccountType([FromBody] AccountType accounttype)
+        {
+            var newAccount =AccountType.Add(accounttype);
+
+           var dbAccountType= _accountTypeRepository.CreatAccountType(newAccount);
+
+            return Ok(dbAccountType);
         }
     }
 }

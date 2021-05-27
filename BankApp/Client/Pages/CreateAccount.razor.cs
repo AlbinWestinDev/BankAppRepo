@@ -19,6 +19,8 @@ namespace BankApp.Client.Pages
         [Parameter]
         public int CustomerId { get; set; }
 
+
+        public AccountType AccountType { get; set; } = new AccountType();
         public Customer Customer { get; set; } = new Customer();
         public List<AccountType> AccountTypes { get; set; } = new List<AccountType>();
         public int SelectedAccountType { get; set; }
@@ -50,7 +52,14 @@ namespace BankApp.Client.Pages
         
         }
 
-   
+       public async Task HandleValidSubmitAccountType()
+        {
+            await _httpClient.PostAsJsonAsync($"AccountType/addaccounttype/", AccountType);
+            await GetAccountTypes();
+
+            AccountType = new AccountType();
+        }
+
 
     }
 }

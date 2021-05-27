@@ -19,6 +19,7 @@ namespace BankApp.Repository
         void CreatCustomer(string emailIdentifier, string iDIdentifier);
         Customer GetById(int id, bool ignore = true);
 
+        Customer GetByAccountId(int id);
         Customer GetById(Guid id);
 
         Customer GetByEmailIdentifier(string emailIdentifier);
@@ -64,6 +65,14 @@ namespace BankApp.Repository
 
         }
 
+
+       public  Customer GetByAccountId(int id)
+        {
+            var account = _context.Accounts.Where(x => x.AccountId == id).FirstOrDefault();
+
+            var customer = _context.Customers.Where(x => x.CustomerId == account.CustomerId).FirstOrDefault();
+            return customer;
+        }
         public Customer UpdateNameOnSignUp(Customer customer, Guid IdentityId)
         {
 
@@ -93,12 +102,33 @@ namespace BankApp.Repository
                 var accountTypes = _context.AccountTypes.ToList();
                 var accountsDto = new List<AccountDto>();
 
+                
                 foreach (var item in accounts)
                 {
+                    var transaction = _context.Transactions.Where(x => x.AccountId == item.AccountId).ToList();
+
                     var a = new AccountDto();
                     a.AccountId = item.AccountId;
                     a.AccountTypeName = accountTypes.Where(x => x.AccountTypeId == item.AccountTypesId).FirstOrDefault().TypeName;
+                    a.Balance = item.Balance;
+
+                    a.Transactions = new List<TransactionDto>();
+                    foreach(var tran in transaction)
+                    {
+                        var dtoTran = new TransactionDto();
+                        dtoTran.Amount = tran.Amount;
+                        dtoTran.Date = tran.Date;
+                        dtoTran.Operation = tran.Operation;
+                        dtoTran.Type = tran.Type;
+                        
+
+                        a.Transactions.Add(dtoTran);
+                        
+                    }
+
                     accountsDto.Add(a);
+
+
                 }
 
                 customer.AccountsList = accountsDto.DeepClone();

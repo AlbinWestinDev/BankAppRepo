@@ -26,16 +26,19 @@
     <Authorized>
         @if (NyCustomer != null) 
         {
-     
+        <div>
+            <h2>Välkommen till Atlas Bank</h2>
+        </div>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">Kund @NyCustomer.Givenname @NyCustomer.Surname</h5>
+                <h5 class="card-title">@NyCustomer.Givenname @NyCustomer.Surname</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Personlig Information</h6>
                 <a>@NyCustomer.Emailaddress</a>
                 <br />
                 <a>@NyCustomer.Streetaddress</a>
+                
                 <div>
-                    <a href="" class="card-link">Konto Översikt</a>
+                    <a @onclick="CustomerAccountDetailsClick" class="btn btn-primary">Hantera konto</a>
                     <btn></btn>
                 </div>
                 

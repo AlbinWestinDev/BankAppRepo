@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 
@@ -41,7 +42,7 @@ namespace BankApp.Server
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -59,7 +60,7 @@ namespace BankApp.Server
             options.IdentityResources["openid"].UserClaims.Add("role");
             options.ApiResources.Single().UserClaims.Add("role");
         });
-
+          
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
             services.AddTransient<IProfileService, ProfileService>();

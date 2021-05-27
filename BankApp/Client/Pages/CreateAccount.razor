@@ -7,25 +7,41 @@
 
 <AuthorizeView Roles="admin" Context="authContext">
     <Authorized>
-        <EditForm Model="@Customer" OnValidSubmit="HandleValidSubmit">      
-        <div class="form-group row">
-            <div class="form-text">
-                Välj kontotyp att skapa upp åt en kund
-
-                <div class="col-sm-10">
-
-                    <InputSelect id="accounttype" @bind-Value="SelectedAccountType">
-                        @foreach (var account in AccountTypes)
-                        {
-                            <option value="@account.AccountTypeId"> @account.TypeName</option>
-
-                        }
-
-                    </InputSelect>
-                    <button type="submit" class="btn btn-primary">Spara</button>
+        <EditForm Model="@AccountType" OnValidSubmit="HandleValidSubmitAccountType">
+            <div class="form-group row" style="margin-bottom:10px">
+                <div class="form-text">
+                    Skapa ny kontotyp
+                    <div class="col-sm-10">
+                        <InputText id="accounttype" class="form-control" placeholder="fyll i typ"
+                                   @bind-Value="@AccountType.TypeName" />
+                    </div>
+                    <div class="col-sm-10">
+                        <InputText id="description" class="form-control" placeholder="fyll i Beskrivning"
+                                   @bind-Value="@AccountType.Description" />
+                    </div>
+                    <div class="col-sm-10">
+                        <InputNumber id="description" class="form-control" placeholder="fyll i ränta"
+                                     @bind-Value="@AccountType.Interest" />
+                    </div>
                 </div>
             </div>
-         </div>   
+            <button type="submit" class="btn btn-primary">Spara ny kontotyp</button>
+        </EditForm>
+        <EditForm Model="@Customer" OnValidSubmit="HandleValidSubmit">
+            <div class="form-group row">
+                <div class="form-text">
+                    Välj kontotyp att skapa upp åt en kund
+                    <div class="col-sm-10">
+                        <InputSelect id="accounttype" @bind-Value="SelectedAccountType">
+                            @foreach (var account in AccountTypes)
+                            {
+                                <option value="@account.AccountTypeId"> @account.TypeName</option>
+                            }
+                        </InputSelect>
+                        <button type="submit" class="btn btn-primary">Spara</button>
+                    </div>
+                </div>
+            </div>
         </EditForm>
     </Authorized>
 

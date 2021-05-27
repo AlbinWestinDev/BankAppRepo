@@ -17,6 +17,8 @@ namespace BankApp.Client.Pages
     {
         [Inject]
         HttpClient _httpClient { get; set; }
+        [Inject]
+        NavigationManager Navigation { get; set; }
         public string TEST { get; set; } = "CP";
 
         public Customer NyCustomer { get; set; } = new Customer();
@@ -64,6 +66,10 @@ namespace BankApp.Client.Pages
             NyCustomer = customer;
             VisaInteEditForm = true;
 
+        }
+        public void CustomerAccountDetailsClick()
+        {
+            Navigation.NavigateTo($"/customeraccountdetails/{NyCustomer.CustomerId}");
         }
     }
 }

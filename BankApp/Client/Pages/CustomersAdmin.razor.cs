@@ -35,10 +35,14 @@ namespace BankApp.Client.Pages
         public async Task ApproveAsAdmin(Customer customer)
         {
             await _httpClient.PutAsJsonAsync($"customer/approveasadmin/",customer);
+            await GetPendingCustomers();
+            await GetCustomers();
         }
         public async Task ApproveAsCustomer(Customer customer)
         {
             await _httpClient.PutAsJsonAsync($"customer/approveascustomer/", customer);
+            await GetPendingCustomers();
+            await GetCustomers();
         }
         public async Task GetCustomers()
         {
